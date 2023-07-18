@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:planner_sqflite/planner/add_update.dart';
 import 'package:planner_sqflite/planner/db_handler.dart';
@@ -45,7 +47,7 @@ class _TodoState extends State<Todo> {
         },
       ),
       appBar: AppBar(
-        title: Text('Planlayıcım'),
+        title: const Text('Planlayıcım'),
       ),
       body: Column(children: [
         Expanded(
@@ -53,10 +55,12 @@ class _TodoState extends State<Todo> {
                 future: datalist,
                 builder: (context, AsyncSnapshot<List<ToDoModel>> snapshot) {
                   if (!snapshot.hasData || snapshot.hasData == null) {
+                    // Veri yüklenirken gösterilecek yüklenme animasyonu
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else if (snapshot.data!.isEmpty) {
+                    // Eğer veri yoksa gösterilecek mesaj
                     return const Center(
                         child: Text(
                       'HENÜZ Hİç Planınız Yok',
@@ -68,6 +72,7 @@ class _TodoState extends State<Todo> {
                           fontWeight: FontWeight.w700),
                     ));
                   } else {
+                    // Veri varsa listeyi oluşturan ListView.builder
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: snapshot.data?.length,
@@ -85,6 +90,7 @@ class _TodoState extends State<Todo> {
                               color: Colors.red,
                               child: const Icon(Icons.delete)),
                           onDismissed: (DismissDirection direction) {
+                            // Bir görev silindiğinde yapılacak işlemler
                             setState(() {
                               dbHelper!.delete(todoId);
                               datalist = dbHelper!.getDataList();
@@ -120,8 +126,8 @@ class _TodoState extends State<Todo> {
                                     style: const TextStyle(color: Colors.black),
                                   ),
                                 ),
-                                Divider(
-                                  //Divider Widget
+                                const Divider(
+                                  // Ayırıcı çizgi Widget'i
                                   color: Colors.black,
                                   thickness: 0.8,
                                 ),
@@ -141,7 +147,7 @@ class _TodoState extends State<Todo> {
                                               fontStyle: FontStyle.italic),
                                         ),
                                         InkWell(
-                                          //edit button
+                                          // Düzenleme düğmesi
                                           onTap: () {
                                             Navigator.pushReplacement(
                                                 context,
@@ -155,7 +161,7 @@ class _TodoState extends State<Todo> {
                                                           update: true,
                                                         )));
                                           },
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.edit_note,
                                             color: Colors.red,
                                             size: 30,

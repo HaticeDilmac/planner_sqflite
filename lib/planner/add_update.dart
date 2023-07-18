@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print, must_be_immutable
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:planner_sqflite/planner/db_handler.dart';
@@ -117,7 +120,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
             const SizedBox(
               height: 40,
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -159,7 +162,9 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                             //sayfaya gittikten sonra textfieldlardakileri temizle
                             titleController.clear();
                             descController.clear();
-                            print("veri silindi");
+                            if (kDebugMode) {
+                              print("veri silindi");
+                            }
                           }
                         },
                         child: Container(
@@ -169,7 +174,7 @@ class _AddUpdateTaskState extends State<AddUpdateTask> {
                           height: 55,
                           width: 120,
                           decoration: const BoxDecoration(),
-                          child: const Text("kaydet"),
+                          child: const Text("Kaydet"),
                         ),
                       ),
                     ),
